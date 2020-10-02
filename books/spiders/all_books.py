@@ -10,6 +10,7 @@ class AllBooksSpider(CrawlSpider):
 
     rules = (
         Rule(LinkExtractor(restrict_xpaths="//ol"), callback='parse_item', follow=True),
+        Rule(LinkExtractor(restrict_xpaths="//li[@class='next']/a")),
     )
 
     def parse_item(self, response):
@@ -17,4 +18,5 @@ class AllBooksSpider(CrawlSpider):
         yield {
             "name": response.xpath("//h1/text()").get(),
             "price": response.xpath("//p[@class='price_color']/text()").get(),
+            "availability": response.xpath("(//td)[6]/text()").get(),
         }
