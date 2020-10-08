@@ -14,15 +14,17 @@ class SQLitePipeline:
     def open_spider(self, spider):
         self.connection = sqlite3.connect("books.db")
         self.c = self.connection.cursor()
-        self.c.execute('''
-            CREATE TABLE all_books(
-                name TEXT,
-                price TEXT,
-                available TEXT
-            )''')
+        try:
+            self.c.execute('''
+                CREATE TABLE all_books(
+                    name TEXT,
+                    price TEXT,
+                    available TEXT
+                )''')
 
-        self.connection.commit()
-
+            self.connection.commit()
+        except Exception as e:
+            pass
 
     def close_spider(self, spider):
         self.connection.close()
