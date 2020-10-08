@@ -6,8 +6,17 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
+import logging
 
 
 class BooksPipeline:
+    def open_spider(self, spider):
+        logging.warning("SPIDER OPENDED FROM PIPELINE")
+
+
+    def close_spider(self, spider):
+        logging.warning("SPIDER CLOSED FROM PIPELINE")
+
+
     def process_item(self, item, spider):
         return item
